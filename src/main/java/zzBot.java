@@ -36,6 +36,14 @@ public class zzBot {
         System.out.println(message);
     }
 
+    public void delete(int index) {
+        Task task = this.taskList.get(index - 1);
+        this.taskList.remove(index - 1);
+        String message = String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                task.describe(),this.getNumOfTask());
+        System.out.println(message);
+    }
+
     public void list() {
         int length = this.taskList.size();
         System.out.println("Here are the tasks in your list:");
@@ -120,6 +128,15 @@ public class zzBot {
                 } catch(Exception e) {
                     throw new ZzBotParseCommandException(input);
                 }
+            }
+            case "delete": {
+                try {
+                    int index = Integer.parseInt(input.split(" ")[1]);
+                    this.delete(index);
+                } catch (Exception e) {
+                    throw new ZzBotDeletionException();
+                }
+                break;
             }
             default: {
                 throw new ZzBotInvalidCommandException(command);

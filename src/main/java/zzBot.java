@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class zzBot {
 
@@ -64,47 +62,85 @@ public class zzBot {
         return this.taskList.size();
     }
 
+    public Boolean process(String input) throws ZzBotException {
+        String command = input.split(" ")[0];
+        switch (command) {
+            case "bye": {
+                this.bye();
+                break;
+            }
+            case "list": {
+                this.list();
+                break;
+            }
+            case "unmark": {
+                String[] s = input.split(" ");
+                int number = Integer.parseInt(s[s.length - 1]);
+                this.unmark(number);
+                break;
+            }
+            case "mark": {
+                String[] s = input.split(" ");
+                int number = Integer.parseInt(s[s.length - 1]);
+                this.mark(number);
+                break;
+            }
+            case "todo": {
+
+                if (input.length() <= command.length()) {
+                    throw new ZzBotMissingArgumentException();
+                }
+                String name = input.substring(command.length() + 1).trim();
+                Task task = new ToDos(name);
+                this.add(task);
+                break;
+            }
+            case "deadline": {
+                try {
+                    String[] s = input.substring(command.length() + 1).split(" /by ");
+
+                    String name = s[0];
+                    String deadline = s[1];
+                    Task task = new Deadlines(name, deadline);
+                    this.add(task);
+                    break;
+                } catch(Exception e) {
+                    throw new ZzBotParseCommandException(input);
+                }
+            }
+            case "event": {
+                try {
+                    String[] s = input.split(" /from | /to ");
+                    String name = s[0].trim();
+                    String start = s[1].trim();
+                    String end = s[2].trim();
+                    Task task = new Events(name, start, end);
+                    this.add(task);
+                    break;
+                } catch(Exception e) {
+                    throw new ZzBotParseCommandException(input);
+                }
+            }
+            default: {
+                throw new ZzBotInvalidCommandException(command);
+            }
+        }
+
+        return !command.equals("bye");
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         zzBot bot = new zzBot();
         bot.greet();
         while (true) {
             String input = scanner.nextLine();
-            String command = input.split(" ")[0];
-            if (command.equals("bye")) {
-                bot.bye();
-                break;
-            } else if (command.equals("list")) {
-                bot.list();
-            } else if (command.equals("unmark")) {
-                String[] s = input.split(" ");
-                int number = Integer.parseInt(s[s.length - 1]);
-                bot.unmark(number);
-            } else if (input.contains("mark")) {
-                String[] s = input.split(" ");
-                int number = Integer.parseInt(s[s.length - 1]);
-                bot.mark(number);
-            } else if (command.equals("todo")){
-                System.out.println("detected");
-                String name = input.substring(command.length() + 1);
-                Task task = new ToDos(name);
-                bot.add(task);
-            } else if (command.equals("deadline")) {
-
-                String[] s = input.substring(command.length() + 1).split(" /by ");
-
-                String name = s[0];
-                String deadline = s[1];
-                Task task = new Deadlines(name,deadline);
-                bot.add(task);
-
-            } else if (command.equals("event")) {
-                String[] s = input.split(" /from | /to ");
-                String name = s[0].trim();
-                String start = s[1].trim();
-                String end = s[2].trim();
-                Task task = new Events(name,start,end);
-                bot.add(task);
+            try{
+                if (!bot.process(input)){
+                    break;
+                }
+            } catch (Exception e){
+                System.out.println(e.getMessage());
             }
         }
     }

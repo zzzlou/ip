@@ -5,12 +5,12 @@ public class zzBot {
 
     private String name;
     private String line;
-    private ArrayList<String> botList;
+    private ArrayList<Task> taskList;
 
     public zzBot() {
         this.name = "zzBot";
         this.line = "____________________________________________________________";
-        this.botList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     public void greet() {
@@ -30,16 +30,30 @@ public class zzBot {
     }
 
     public void add(String string) {
-        botList.add(string);
-        System.out.println(String.format("added: %s",string));
+        this.taskList.add(new Task(string));
+        System.out.println(String.format("added: %s", string));
     }
 
     public void list() {
-        int length = this.botList.size();
+        int length = this.taskList.size();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
-            String output = String.format("%d.  %s", i + 1, this.botList.get(i));
+            Task task = this.taskList.get(i);
+            String output = String.format("%d.%s", i + 1, task.describe());
             System.out.println(output);
         }
+    }
+
+    public void mark(int number) {
+        Task task = taskList.get(number - 1);
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n" + task.describe());
+    }
+
+    public void unmark(int number) {
+        Task task = taskList.get(number - 1);
+        task.markUnDone();
+        System.out.println("OK, I've marked this task as not done yet:\n" + task.describe());
     }
 
     public static void main(String[] args) {
@@ -53,9 +67,17 @@ public class zzBot {
                 break;
             } else if (input.equals("list")) {
                 bot.list();
+            } else if (input.contains("unmark")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
+                bot.unmark(number);
+            } else if (input.contains("mark")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
+                bot.mark(number);
             } else {
                 bot.add(input);
             }
         }
     }
 }
+
+

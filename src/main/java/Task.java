@@ -1,10 +1,13 @@
-public class Task {
+abstract class Task {
     protected String name;
     protected boolean isDone;
+    protected String type;
 
-    public Task(String name) {
+
+    public Task(String name, String type) {
         this.name = name;
         this.isDone = false;
+        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -22,8 +25,5 @@ public class Task {
     public String getName() {
         return name;
     }
-    public String describe() {
-        String s = String.format("[%s] %s",this.getStatusIcon(),this.getName());
-        return s;
-    }
+    abstract String describe();
 }

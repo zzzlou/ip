@@ -1,26 +1,33 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
 
-    private String deadline;
+    private LocalDate deadline;
 
-    Deadlines(String name, String deadline) {
+    Deadlines(String name, LocalDate deadline) {
         super(name, "D");
         this.deadline = deadline;
     }
 
-    Deadlines(String name, boolean isDone, String deadline) {
+    Deadlines(String name, boolean isDone, LocalDate deadline) {
         super(name, isDone, "D");
         this.deadline = deadline;
     }
 
     @Override
     public String describe() {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String description = String.format("[%s][%s] %s (by: %s)",
-                this.type, this.getStatusIcon(), this.getName(), this.deadline);
+                this.type, this.getStatusIcon(), this.getName(), this.deadline.format(outputFormatter));
         return description;
     }
 
     @Override
     public String writeFile() {
-        return this.type + "|" + (this.isDone ? "1":"0") + "|" + this.name + "|" + this.deadline + "\n";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return this.type + "|" + (this.isDone ? "1":"0") + "|" + this.name + "|" + this.deadline.toString() + "\n";
     }
+
+    
 }

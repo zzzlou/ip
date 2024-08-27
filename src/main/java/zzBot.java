@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class zzBot {
 
@@ -43,11 +45,10 @@ public class zzBot {
             String type = ss[0];
             boolean isDone = ss[1] == "1" ? true:false;
             String name = ss[2];
-            System.out.println(line);
-            System.out.println(Arrays.toString(ss));
             if (type.equals("D")) {
                 String deadline = ss[3];
-                Task task = new Deadlines(name, isDone,deadline);
+                LocalDate date = LocalDate.parse(deadline);
+                Task task = new Deadlines(name, isDone,date);
                 arr.add(task);
             } else if (type.equals("E")) {
                 String start = ss[3];
@@ -161,7 +162,8 @@ public class zzBot {
 
                     String name = s[0];
                     String deadline = s[1];
-                    Task task = new Deadlines(name, deadline);
+                    LocalDate date = LocalDate.parse(deadline);
+                    Task task = new Deadlines(name, date);
                     this.add(task);
                     break;
                 } catch (Exception e) {

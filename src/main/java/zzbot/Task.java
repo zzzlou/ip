@@ -1,3 +1,4 @@
+package zzbot;
 abstract class Task {
     protected String name;
     protected boolean isDone;

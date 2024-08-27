@@ -1,3 +1,4 @@
+package zzbot;
 public class ZzBotMissingArgumentException extends ZzBotException{
 
     public ZzBotMissingArgumentException() {

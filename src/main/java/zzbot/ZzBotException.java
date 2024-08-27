@@ -1,3 +1,4 @@
+package zzbot;
 public class ZzBotException extends Exception{
 
     public ZzBotException(String message) {

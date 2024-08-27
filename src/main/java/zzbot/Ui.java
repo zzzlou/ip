@@ -1,3 +1,4 @@
+package zzbot;
 import java.util.Scanner;
 
 class Ui {

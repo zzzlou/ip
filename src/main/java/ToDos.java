@@ -17,7 +17,7 @@ public class ToDos extends Task{
 
     @Override
     public String writeFile() {
-        return this.type + "|" + this.isDone + "|" + this.name + "\n";
+        return this.type + "|" + (this.isDone ? "1":"0") + "|" + this.name + "\n";
     }
 
 }

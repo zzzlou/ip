@@ -25,7 +25,7 @@ public class Events extends Task {
 
     @Override
     public String writeFile() {
-        return this.type + "|" + this.isDone + "|" + this.name + "|" + this.start + "|" + this.end + "\n";
+        return this.type + "|" + (this.isDone ? "1":"0") + "|" + this.name + "|" + this.start + "|" + this.end + "\n";
     }
 
 }

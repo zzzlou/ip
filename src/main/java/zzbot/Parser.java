@@ -1,3 +1,4 @@
+package zzbot;
 public class Parser {
 
     public String parseCommand(String input) {

@@ -1,3 +1,4 @@
+package zzbot;
 public class ZzBotDeletionException extends ZzBotException{
 
     public ZzBotDeletionException() {

@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class zzBot {
 
@@ -11,6 +16,53 @@ public class zzBot {
         this.name = "zzBot";
         this.line = "____________________________________________________________";
         this.taskList = new ArrayList<>();
+    }
+
+    public zzBot(String path) {
+        this.name = "zzBot";
+        this.line = "____________________________________________________________";
+        try {
+            this.taskList = genList(path);
+        } catch (IOException e) {
+            System.out.println("Failed to load from file");
+            this.taskList = new ArrayList<>();
+        }
+    }
+
+    private ArrayList<Task> genList(String path) throws FileNotFoundException {
+        File f = new File(path);
+        if (!f.exists()) {
+            System.out.println("no");
+        }
+        Scanner s = new Scanner(f);
+        ArrayList<Task> arr = new ArrayList<>();
+        while (s.hasNext()) {
+            
+            String line = s.nextLine();
+            String[] ss = line.split("\\|");
+            String type = ss[0];
+            boolean isDone = ss[1] == "1" ? true:false;
+            String name = ss[2];
+            System.out.println(line);
+            System.out.println(Arrays.toString(ss));
+            if (type.equals("D")) {
+                String deadline = ss[3];
+                Task task = new Deadlines(name, isDone,deadline);
+                arr.add(task);
+            } else if (type.equals("E")) {
+                String start = ss[3];
+                String end = ss[4];
+                Task task = new Events(name, isDone,start, end);
+                arr.add(task);
+            } else {
+                Task task = new ToDos(name,isDone);
+                arr.add(task);
+            }
+        }
+        s.close();
+
+        return arr;
+
     }
 
     public void greet() {
@@ -32,7 +84,7 @@ public class zzBot {
     public void add(Task task) {
         this.taskList.add(task);
         String message = String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list",
-                task.describe(),this.getNumOfTask());
+                task.describe(), this.getNumOfTask());
         System.out.println(message);
     }
 
@@ -40,7 +92,7 @@ public class zzBot {
         Task task = this.taskList.get(index - 1);
         this.taskList.remove(index - 1);
         String message = String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
-                task.describe(),this.getNumOfTask());
+                task.describe(), this.getNumOfTask());
         System.out.println(message);
     }
 
@@ -112,7 +164,7 @@ public class zzBot {
                     Task task = new Deadlines(name, deadline);
                     this.add(task);
                     break;
-                } catch(Exception e) {
+                } catch (Exception e) {
                     throw new ZzBotParseCommandException(input);
                 }
             }
@@ -125,7 +177,7 @@ public class zzBot {
                     Task task = new Events(name, start, end);
                     this.add(task);
                     break;
-                } catch(Exception e) {
+                } catch (Exception e) {
                     throw new ZzBotParseCommandException(input);
                 }
             }
@@ -146,21 +198,31 @@ public class zzBot {
         return !command.equals("bye");
     }
 
+    public void record(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : this.taskList) {
+            String text = task.writeFile();
+            fw.write(text);
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        zzBot bot = new zzBot();
+        String recordPath = "./data/zzBot.txt";
+        zzBot bot = new zzBot(recordPath);
         bot.greet();
         while (true) {
             String input = scanner.nextLine();
-            try{
-                if (!bot.process(input)){
+            try {
+                if (!bot.process(input)) {
                     break;
                 }
-            } catch (Exception e){
+                bot.record(recordPath);
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+        scanner.close();
     }
 }
-
-

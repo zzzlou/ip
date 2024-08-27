@@ -3,11 +3,14 @@ abstract class Task {
     protected boolean isDone;
     protected String type;
 
-
-    public Task(String name, String type) {
+    public Task(String name, boolean isDone, String type) {
         this.name = name;
         this.isDone = false;
         this.type = type;
+    }
+
+    public Task(String name, String type) {
+        this(name, false, type);
     }
 
     public String getStatusIcon() {
@@ -25,5 +28,8 @@ abstract class Task {
     public String getName() {
         return name;
     }
+
     abstract String describe();
+
+    abstract String writeFile();
 }

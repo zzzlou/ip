@@ -65,12 +65,26 @@ public class ZzBot {
 
     public String list() {
         int length = this.taskList.size();
-        System.out.println("Here are the tasks in your list:");
-        String s = "";
+        String s = "Here are the tasks in your list:\n";
         for (int i = 0; i < length; i++) {
             Task task = this.taskList.get(i);
             String output = String.format("%d.%s", i + 1, task.describe());
             s += output + "\n";
+        }
+        return s;
+    }
+
+    public String find(String keyword) {
+        String s = "Here are the matching tasks in your list:\n";
+        int length = this.taskList.size();
+        int cnt = 0;
+        for (int i = 0; i < length; i++) {
+            Task task = this.taskList.get(i);
+            if (task.describe().contains(keyword)) {
+                cnt += 1;
+                String output = String.format("%d.%s", cnt, task.describe());
+                s += output + "\n";
+            }
         }
         return s;
     }
@@ -143,6 +157,11 @@ public class ZzBot {
             case "delete": {
                 int index = parser.parseNumberArgument(input);
                 this.ui.output(this.delete(index));
+                break;
+            }
+            case "find": {
+                String keyword = parser.parseKeyword(input);
+                this.ui.output(this.find(keyword));
                 break;
             }
             default: {

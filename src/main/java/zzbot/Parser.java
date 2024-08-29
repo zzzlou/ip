@@ -17,6 +17,10 @@ public class Parser {
         return input.split(" ")[0];
     }
 
+    public String parseKeyword(String input) {
+        return input.split(" ")[1];
+    }
+
     /**
      * Parses the arguments from the user input string.
      * The method splits the input into two parts: the command and the remaining arguments.

@@ -1,5 +1,6 @@
 package zzbot;
-public class ZzBotMissingArgumentException extends ZzBotException{
+
+public class ZzBotMissingArgumentException extends ZzBotException {
 
     public ZzBotMissingArgumentException() {
         super("Missing argument");

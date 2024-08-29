@@ -1,4 +1,5 @@
 package zzbot;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -95,7 +96,7 @@ public class ZzBot {
     public Boolean process(String input) throws ZzBotException {
         Parser parser = new Parser();
         String command = parser.parseCommand(input);
-    
+
         switch (command) {
             case "bye": {
                 this.ui.output(this.bye());
@@ -148,12 +149,10 @@ public class ZzBot {
                 throw new ZzBotInvalidCommandException(command);
             }
         }
-    
+
         return !command.equals("bye");
     }
-    
 
-    
 
     public void run() {
         this.ui.output(this.greet());
@@ -167,9 +166,9 @@ public class ZzBot {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
-        
+
     }
 
     public static void main(String[] args) {

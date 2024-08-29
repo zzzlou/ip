@@ -1,4 +1,5 @@
 package zzbot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -60,8 +61,8 @@ public class Deadlines extends Task {
     @Override
     public String writeFile() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return this.type + "|" + (this.isDone ? "1":"0") + "|" + this.name + "|" + this.deadline.toString() + "\n";
+        return this.type + "|" + (this.isDone ? "1" : "0") + "|" + this.name + "|" + this.deadline.toString() + "\n";
     }
 
-    
+
 }

@@ -20,7 +20,7 @@ public class ZzBot {
 
     public ZzBot(String path) {
         this.name = "zzBot";
-        this.line = "____________________________________________________________";
+        this.line = "_____________________________________________________________";
         this.ui = new Ui();
         this.storage = new Storage(path);
         try {

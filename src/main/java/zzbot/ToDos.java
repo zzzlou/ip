@@ -11,9 +11,8 @@ public class ToDos extends Task{
 
     @Override
     public String describe() {
-        String description = String.format("[%s][%s] %s",
-                this.type,this.getStatusIcon(),this.getName());
-        return description;
+        return String.format("[%s][%s] %s",
+                this.type, this.getStatusIcon(), this.getName());
     }
 
     @Override

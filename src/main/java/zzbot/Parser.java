@@ -88,7 +88,7 @@ public class Parser {
      *
      * @param input The user input string.
      * @return An array of strings, where the first element is the task description, the second element is the start time, and the third element is the end time.
-     * @throws ZzBotParseCommandException If the input format is incorrect.
+     * @throws ZzBotParseCommandException If the input format is incorrect .
      */
     public String[] parseEvent(String input) throws ZzBotParseCommandException {
         try {

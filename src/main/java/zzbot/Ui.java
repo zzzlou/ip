@@ -41,7 +41,7 @@ public class Ui {
      *
      * @param s The string to be displayed.
      */
-    public void output(String s) {
-        System.out.println(s);
+    public String output(String s) {
+        return s;
     }
 }

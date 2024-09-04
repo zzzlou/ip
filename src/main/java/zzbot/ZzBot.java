@@ -17,6 +17,7 @@ public class ZzBot {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
+    private static String PATH = "./data/zzBot.txt";
 
     public ZzBot(String path) {
         this.name = "zzBot";
@@ -29,6 +30,10 @@ public class ZzBot {
             ui.showLoadingError();
             this.taskList = new TaskList();
         }
+    }
+
+    public ZzBot() {
+        this(PATH);
     }
 
     public String greet() {
@@ -107,34 +112,34 @@ public class ZzBot {
         return this.taskList.size();
     }
 
-    public Boolean process(String input) throws ZzBotException {
+    public String process(String input) throws ZzBotException {
         Parser parser = new Parser();
         String command = parser.parseCommand(input);
 
         switch (command) {
             case "bye": {
-                this.ui.output(this.bye());
-                break;
+                return this.ui.output(this.bye());
+
             }
             case "list": {
-                this.ui.output(this.list());
-                break;
+                return this.ui.output(this.list());
+
             }
             case "unmark": {
                 int number = parser.parseNumberArgument(input);
-                this.ui.output(this.unmark(number));
-                break;
+                return this.ui.output(this.unmark(number));
+
             }
             case "mark": {
                 int number = parser.parseNumberArgument(input);
-                this.ui.output(this.mark(number));
-                break;
+                return this.ui.output(this.mark(number));
+
             }
             case "todo": {
                 String name = parser.parseTodoName(input);
                 Task task = new ToDos(name);
-                this.ui.output(this.add(task));
-                break;
+                return this.ui.output(this.add(task));
+
             }
             case "deadline": {
                 String[] args = parser.parseDeadline(input);
@@ -142,8 +147,8 @@ public class ZzBot {
                 String deadline = args[1].trim();
                 LocalDate date = LocalDate.parse(deadline);
                 Task task = new Deadlines(name, date);
-                this.ui.output(this.add(task));
-                break;
+                return this.ui.output(this.add(task));
+
             }
             case "event": {
                 String[] args = parser.parseEvent(input);
@@ -151,46 +156,59 @@ public class ZzBot {
                 String start = args[1].trim();
                 String end = args[2].trim();
                 Task task = new Events(name, start, end);
-                this.ui.output(this.add(task));
-                break;
+                return this.ui.output(this.add(task));
+
             }
             case "delete": {
                 int index = parser.parseNumberArgument(input);
-                this.ui.output(this.delete(index));
-                break;
+                return this.ui.output(this.delete(index));
+
             }
             case "find": {
                 String keyword = parser.parseKeyword(input);
-                this.ui.output(this.find(keyword));
-                break;
+                return this.ui.output(this.find(keyword));
+
             }
             default: {
                 throw new ZzBotInvalidCommandException(command);
             }
         }
 
-        return !command.equals("bye");
+        //return !command.equals("bye");
     }
 
 
-    public void run() {
-        this.ui.output(this.greet());
-        while (true) {
-            String input = ui.input();
-            try {
-                if (!this.process(input)) {
-                    break;
-                }
-                this.storage.record(this.taskList);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+//    public void run() {
+//        this.ui.output(this.greet());
+//        while (true) {
+//            String input = ui.input();
+//            try {
+//                if (!this.process(input)) {
+//                    break;
+//                }
+//                this.storage.record(this.taskList);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//
+//        }
+//
+//    }
+
+//    public static void main(String[] args) {
+//        new ZzBot().run();
+//    }
+
+    public String getResponse(String input) {
+        try {
+            String response = this.process(input);
+            if (response.equals("bye")) {
+                System.exit(0);
             }
-
+            this.storage.record(this.taskList);
+            return response;
+        } catch (Exception e) {
+            return e.getMessage();
         }
-
-    }
-
-    public static void main(String[] args) {
-        new ZzBot("./data/zzBot.txt").run();
     }
 }

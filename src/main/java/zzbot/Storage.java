@@ -38,7 +38,6 @@ public class Storage {
             String line = s.nextLine();
             String[] ss = line.split("\\|");
             String type = ss[0];
-
             boolean isDone = ss[1].equals("1");
 
             String name = ss[2];

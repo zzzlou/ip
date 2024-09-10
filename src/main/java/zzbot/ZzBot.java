@@ -18,6 +18,7 @@ public class ZzBot {
     private Ui ui;
     private Storage storage;
     private static String PATH = "./data/zzBot.txt";
+    private static String MANUAL = "Certainly! Here is the manual:\nAvailable commands:\nadd\ndelete\nlist\nfind\nmark\nunmark\nbye\nTo add a new task, enter one of the following:\ndeadline\ntodo\nevent";
 
     public ZzBot(String path) {
         this.name = "zzBot";
@@ -168,6 +169,12 @@ public class ZzBot {
                 return this.ui.output(this.find(keyword));
 
             }
+
+            case "help": {
+                String manual = "manual";
+                return this.ui.output(MANUAL);
+            }
+
             default: {
                 throw new ZzBotInvalidCommandException(command);
             }

@@ -17,13 +17,6 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private ZzBot zzbot = new ZzBot("./data/zzBot.txt");
 
     public void start(Stage stage) {
@@ -37,16 +30,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        String dukeText = zzbot.getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, dukeImage)
-        );
-        userInput.clear();
     }
 }
 

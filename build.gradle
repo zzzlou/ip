@@ -48,10 +48,12 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "zzbot"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
 }
+
+

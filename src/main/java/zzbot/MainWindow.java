@@ -36,6 +36,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setZzBot(ZzBot z) {
         zzbot = z;
+        assert zzbot != null : "ZzBot instance should not be null";
     }
 
     /**

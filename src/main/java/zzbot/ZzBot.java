@@ -40,7 +40,6 @@ public class ZzBot {
 
         String message = this.line + String.format("\nHello! I'm %s", this.name) +
                 "\nWhat can I do for you?\n" + this.line;
-
         return message;
     }
 
@@ -173,31 +172,10 @@ public class ZzBot {
                 throw new ZzBotInvalidCommandException(command);
             }
         }
-
-        //return !command.equals("bye");
     }
 
 
-//    public void run() {
-//        this.ui.output(this.greet());
-//        while (true) {
-//            String input = ui.input();
-//            try {
-//                if (!this.process(input)) {
-//                    break;
-//                }
-//                this.storage.record(this.taskList);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//
-//        }
-//
-//    }
 
-//    public static void main(String[] args) {
-//        new ZzBot().run();
-//    }
 
     public String getResponse(String input) {
         try {

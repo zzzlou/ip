@@ -48,6 +48,14 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    private void shrink(double imgWidth, double imgHeight) {
+
+        displayPicture.setFitWidth(imgWidth);
+        displayPicture.setFitHeight(imgHeight);
+
+        this.setStyle("-fx-padding: 5px;");
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
@@ -55,6 +63,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.shrink(80,40);
         return db;
     }
 }

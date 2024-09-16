@@ -19,7 +19,7 @@ public class ZzBot {
     private Storage storage;
     private static String PATH = "./data/zzBot.txt";
     private static String MANUAL = "Certainly! Here is the manual:\nAvailable commands:\nadd\ndelete\nlist\nfind\nmark\nunmark\nbye\nTo add a new task, enter one of the following:\ndeadline\ntodo\nevent";
-
+    public static String PERSONALITY_STRING = "Certainly Bro!\n";
     public ZzBot(String path) {
         this.name = "zzBot";
         this.ui = new Ui();
@@ -43,16 +43,16 @@ public class ZzBot {
     }
 
     public String bye() {
-        return "\nBye. Hope to see you again soon!\n";
+        return personality() + "\nBye. Hope to see you again soon!\n";
     }
 
-    public String echo(String input) {
-        return input;
+    public String personality() {
+        return PERSONALITY_STRING;
     }
 
     public String add(Task task) {
         this.taskList.add(task);
-        String message = String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list",
+        String message = personality() + String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list",
                 task.describe(), this.getNumOfTask());
         return message;
     }
@@ -60,24 +60,24 @@ public class ZzBot {
     public String delete(int index) {
         Task task = this.taskList.get(index - 1);
         this.taskList.delete(index - 1);
-        String message = String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+        String message = personality() + String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
                 task.describe(), this.getNumOfTask());
         return message;
     }
 
     public String list() {
         int length = this.taskList.size();
-        String s = "Here are the tasks in your list:\n";
+        String s = personality() + "Here are the tasks in your list:\n";
         for (int i = 0; i < length; i++) {
             Task task = this.taskList.get(i);
-            String output = String.format("%d.%s", i + 1, task.describe());
+            String output = personality() + String.format("%d.%s", i + 1, task.describe());
             s += output + "\n";
         }
         return s;
     }
 
     public String find(String keyword) {
-        String s = "Here are the matching tasks in your list:\n";
+        String s = personality() + "Here are the matching tasks in your list:\n";
         int length = this.taskList.size();
         int cnt = 0;
         for (int i = 0; i < length; i++) {
@@ -94,14 +94,14 @@ public class ZzBot {
     public String mark(int number) {
         Task task = taskList.get(number - 1);
         task.markAsDone();
-        String s = "Nice! I've marked this task as done:\n" + task.describe();
+        String s = personality() + "Nice! I've marked this task as done:\n" + task.describe();
         return s;
     }
 
     public String unmark(int number) {
         Task task = taskList.get(number - 1);
         task.markUnDone();
-        String s = "OK, I've marked this task as not done yet:\n" + task.describe();
+        String s = personality() + "OK, I've marked this task as not done yet:\n" + task.describe();
         return s;
     }
 

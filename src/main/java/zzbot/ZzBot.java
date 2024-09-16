@@ -22,7 +22,6 @@ public class ZzBot {
 
     public ZzBot(String path) {
         this.name = "zzBot";
-        this.line = "_____________________________________________________________";
         this.ui = new Ui();
         this.storage = new Storage(path);
         try {
@@ -39,14 +38,12 @@ public class ZzBot {
 
     public String greet() {
 
-        String message = this.line + String.format("\nHello! I'm %s", this.name) +
-                "\nWhat can I do for you?\n" + this.line;
-        return message;
+        return String.format("\nHello! I'm %s", this.name) +
+                "\nWhat can I do for you?\n";
     }
 
     public String bye() {
-        String s = this.line + "\nBye. Hope to see you again soon!\n" + this.line;
-        return s;
+        return "\nBye. Hope to see you again soon!\n";
     }
 
     public String echo(String input) {

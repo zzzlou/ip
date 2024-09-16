@@ -39,12 +39,6 @@ public class ZzBot {
         }
     }
 
-    /**
-     * Constructs a {@code ZzBot} instance with the default storage path.
-     */
-    public ZzBot() {
-        this(PATH);
-    }
 
     /**
      * Generates a greeting message for the user.
@@ -186,45 +180,43 @@ public class ZzBot {
         String command = parser.parseCommand(input);
 
         switch (command) {
+
             case "bye": {
                 return this.ui.output(this.bye());
-
             }
+
             case "list": {
                 return this.ui.output(this.list());
-
             }
+
             case "unmark": {
                 int number = parser.parseNumberArgument(input);
                 return this.ui.output(this.unmark(number));
-
             }
+
             case "mark": {
                 int number = parser.parseNumberArgument(input);
                 return this.ui.output(this.mark(number));
 
             }
+
             case "todo": {
                 String name = parser.parseTodoName(input);
                 Task task = new ToDos(name);
                 return this.ui.output(this.add(task));
-
             }
+
             case "deadline": {
                 String[] args = parser.parseDeadline(input);
                 String name = args[0];
-                System.out.println(Arrays.toString(args));
                 String deadline = args[1].trim();
-                LocalDate date;
-                try {
-                    date = LocalDate.parse(deadline);
-                } catch (Exception e) {
-                    throw new ZzBotInvalidDateException(deadline);
-                }
+
+                LocalDate date = LocalDate.parse(deadline);
+
                 Task task = new Deadlines(name, date);
                 return this.ui.output(this.add(task));
-
             }
+
             case "event": {
                 String[] args = parser.parseEvent(input);
                 String name = args[0].trim();
@@ -232,13 +224,13 @@ public class ZzBot {
                 String end = args[2].trim();
                 Task task = new Events(name, start, end);
                 return this.ui.output(this.add(task));
-
             }
+
             case "delete": {
                 int index = parser.parseNumberArgument(input);
                 return this.ui.output(this.delete(index));
-
             }
+
             case "find": {
                 String keyword = parser.parseKeyword(input);
                 return this.ui.output(this.find(keyword));

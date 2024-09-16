@@ -21,7 +21,7 @@ public class ZzBot {
     private static String MANUAL = "Certainly! Here is the manual:\nAvailable commands:\nadd\ndelete\nlist\nfind\nmark\nunmark\nbye\nTo add a new task, enter one of the following:\ndeadline\ntodo\nevent";
     public static String PERSONALITY_STRING = "Certainly Bro!\n";
     public ZzBot(String path) {
-        this.name = "zzBot";
+        this.name = "ZzBot";
         this.ui = new Ui();
         this.storage = new Storage(path);
         try {
@@ -70,7 +70,7 @@ public class ZzBot {
         String s = personality() + "Here are the tasks in your list:\n";
         for (int i = 0; i < length; i++) {
             Task task = this.taskList.get(i);
-            String output = personality() + String.format("%d.%s", i + 1, task.describe());
+            String output = String.format("%d.%s", i + 1, task.describe());
             s += output + "\n";
         }
         return s;

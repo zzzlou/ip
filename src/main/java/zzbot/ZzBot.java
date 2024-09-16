@@ -141,8 +141,14 @@ public class ZzBot {
             case "deadline": {
                 String[] args = parser.parseDeadline(input);
                 String name = args[0];
+                System.out.println(Arrays.toString(args));
                 String deadline = args[1].trim();
-                LocalDate date = LocalDate.parse(deadline);
+                LocalDate date;
+                try {
+                    date = LocalDate.parse(deadline);
+                } catch (Exception e) {
+                    throw new ZzBotInvalidDateException(deadline);
+                }
                 Task task = new Deadlines(name, date);
                 return this.ui.output(this.add(task));
 

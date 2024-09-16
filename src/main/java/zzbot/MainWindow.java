@@ -40,7 +40,7 @@ public class MainWindow extends AnchorPane {
 
         String greet = zzbot.greet();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greet, dukeImage)
+                DialogBox.getBotDialog(greet, dukeImage)
         );
     }
 
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = zzbot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBotDialog(response, dukeImage)
         );
 
         userInput.clear();

@@ -71,13 +71,13 @@ public class Parser {
      *
      * @param input The user input string.
      * @return An array of strings, where the first element is the task description and the second element is the deadline.
-     * @throws ZzBotParseCommandException If the input format is incorrect.
+     * @throws ZzBotInvalidDateException If the input format is incorrect.
      */
-    public String[] parseDeadline(String input) throws ZzBotParseCommandException {
+    public String[] parseDeadline(String input) throws ZzBotInvalidDateException {
         try {
             return input.substring(parseCommand(input).length() + 1).split(" /by ");
         } catch (Exception e) {
-            throw new ZzBotParseCommandException(input);
+            throw new ZzBotInvalidDateException(input);
         }
     }
 

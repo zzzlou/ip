@@ -1,7 +1,6 @@
 package zzbot;
 
-import java.util.Arrays;
-import java.io.IOException;
+
 import java.time.LocalDate;
 
 
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 public class ZzBot {
 
     private String name;
-    private String line;
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
@@ -25,18 +23,13 @@ public class ZzBot {
     /**
      * Constructs a {@code ZzBot} instance with a specified storage path.
      *
-     * @param path The path where the task data will be stored.
      */
-    public ZzBot(String path) {
+    public ZzBot() {
         this.name = "ZzBot";
         this.ui = new Ui();
-        this.storage = new Storage(path);
-        try {
-            this.taskList = new TaskList(storage.load());
-        } catch (IOException e) {
-            ui.showLoadingError();
-            this.taskList = new TaskList();
-        }
+        this.storage = new Storage(PATH);
+        this.taskList = new TaskList(storage.load());
+
     }
 
 

@@ -30,37 +30,47 @@ public class Storage {
         fw.close();
     }
 
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() {
         File f = new File(this.path);
-        Scanner s = new Scanner(f);
         ArrayList<Task> arr = new ArrayList<>();
-        while (s.hasNext()) {
+        File dir = f.getParentFile();
 
-            String line = s.nextLine();
-            String[] ss = line.split("\\|");
-            String type = ss[0];
-            boolean isDone = ss[1].equals(COMPLETED);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
-            String name = ss[2];
-            if (type.equals(DEADLINE_TASK_TYPE)) {
-                String deadline = ss[3];
-                LocalDate date = LocalDate.parse(deadline);
-                Task task = new Deadlines(name, isDone, date);
-                arr.add(task);
-            } else if (type.equals(EVENT_TASK_TYPE)) {
-                String start = ss[3];
-                String end = ss[4];
-                Task task = new Events(name, isDone, start, end);
-                arr.add(task);
-            } else {
-                Task task = new ToDos(name, isDone);
-                arr.add(task);
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] ss = line.split("\\|");
+                String type = ss[0];
+                boolean isDone = ss[1].equals(COMPLETED);
+                String name = ss[2];
+
+                if (type.equals(DEADLINE_TASK_TYPE)) {
+                    String deadline = ss[3];
+                    LocalDate date = LocalDate.parse(deadline);
+                    Task task = new Deadlines(name, isDone, date);
+                    arr.add(task);
+                } else if (type.equals(EVENT_TASK_TYPE)) {
+                    String start = ss[3];
+                    String end = ss[4];
+                    Task task = new Events(name, isDone, start, end);
+                    arr.add(task);
+                } else {
+                    Task task = new ToDos(name, isDone);
+                    arr.add(task);
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            try {
+                f.createNewFile();
+            } catch (IOException ioException) {
+                System.out.println("An error occurred while creating the file: " + ioException.getMessage());
             }
         }
-        s.close();
-
         return arr;
-
     }
-
 }

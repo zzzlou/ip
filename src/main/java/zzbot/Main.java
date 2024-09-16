@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 
-    private ZzBot zzbot = new ZzBot("./data/zzBot.txt");
+    private ZzBot zzbot = new ZzBot();
 
     public void start(Stage stage) {
         try {

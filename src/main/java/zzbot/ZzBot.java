@@ -185,8 +185,19 @@ public class ZzBot {
     }
 
 
-
-
+    /**
+     * Processes the user input and generates a response.
+     *
+     * This method takes the user input, processes it using the {@code process} method,
+     * and returns the corresponding response. If the response is "bye", the program will exit.
+     * Additionally, it saves the current task list to storage after processing the input.
+     *
+     * If an exception is thrown during processing, the method catches it and returns
+     * the exception message as the response.
+     *
+     * @param input The user input to process.
+     * @return The response after processing the input. If an exception occurs, the exception message is returned.
+     */
     public String getResponse(String input) {
         try {
             String response = this.process(input);

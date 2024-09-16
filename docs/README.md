@@ -1,30 +1,80 @@
-# Duke User Guide
+# ZzBot User Guide
 
-// Update the title above to match the actual product name
+ZzBot is your friendly task management assistant, designed to help you track deadlines, events, and todos with ease!
 
-// Product screenshot goes here
+## Table of Contents
+- [Adding Deadlines](#adding-deadlines)
+- [Adding Events](#adding-events)
+- [Adding Todos](#adding-todos)
+- [Listing Tasks](#listing-tasks)
+- [Marking and Unmarking Tasks](#marking-and-unmarking-tasks)
+- [Deleting Tasks](#deleting-tasks)
+- [Finding Tasks by Keywords](#finding-tasks-by-keywords)
+- [Saying Bye](#saying-bye)
+- [Personality](#personality)
+- [Asking for Help](#asking-for-help)
 
-// Product intro goes here
+## Adding Deadlines
+Command: 
+`deadline {task name} /by {yyyy-mm-dd}`
 
-## Adding deadlines
+Example: 
+`deadline return book /by 2024-09-16`
 
-// Describe the action and its outcome.
+## Adding Events
+Command: 
+`event {task name} /from {start time} /to {end time}`
 
-// Give examples of usage
+Example: 
+`event project meeting /from Mon 2pm /to 4pm`
 
-Example: `keyword (optional arguments)`
+## Adding Todos
+Command: 
+`todo {task name}`
 
-// A description of the expected outcome goes here
+Example: 
+`todo borrow book`
 
-```
-expected output
-```
+## Listing Tasks
+Command: 
+`list`
 
-## Feature ABC
+## Marking and Unmarking Tasks
+Command: 
+`mark {task number}` 
+`unmark {task number}`
 
-// Feature details
+Example: 
+`mark 3`
 
+Note: Task numbers start from 1.
 
-## Feature XYZ
+## Deleting Tasks
+Command: 
+`delete {task number}`
 
-// Feature details
+Example: 
+`delete 3`
+
+## Finding Tasks by Keywords
+Command: 
+`find {keyword}`
+
+Example: 
+`find book`
+
+This will return all tasks containing the keyword 'book'.
+
+## Saying Bye
+Command: 
+`bye`
+
+## Personality
+ZzBot has an outgoing personality. In every response, he will begin with a friendly "Certainly Bro!".
+
+## Asking for Help
+If you have trouble memorizing all the commands, simply use the command:
+
+`help`
+
+A manual will be displayed to guide you.

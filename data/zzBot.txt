@@ -2,3 +2,4 @@ D|0|return book|2024-08-27
 D|0|return book|2024-08-29
 D|1|return book|2025-09-05
 D|0|play video games|2024-09-17
+E|0|project meeting|Mon 2pm|4pm

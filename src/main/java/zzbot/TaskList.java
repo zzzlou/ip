@@ -16,14 +16,14 @@ public class TaskList {
      *
      * @param tasks The initial list of tasks.
      */
-    TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
      * Constructs an empty {@code TaskList}.
      */
-    TaskList() {
+    public TaskList() {
         this(new ArrayList<>());
     }
 

@@ -19,8 +19,10 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+
     @FXML
     private Label dialog;
+
     @FXML
     private ImageView displayPicture;
 
@@ -63,7 +65,7 @@ public class DialogBox extends HBox {
     public static DialogBox getBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.shrink(80,40);
+        db.shrink(80, 40);
         return db;
     }
 }

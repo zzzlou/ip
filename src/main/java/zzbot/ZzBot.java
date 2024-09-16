@@ -1,15 +1,16 @@
 package zzbot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+
+/**
+ * The {@code ZzBot} class represents the core functionality of the bot,
+ * managing tasks and interacting with the user through a command-line interface.
+ * It supports adding, deleting, listing, and finding tasks, as well as marking tasks
+ * as done or not done. The bot also saves tasks to a storage file.
+ */
 public class ZzBot {
 
     private String name;
@@ -20,6 +21,12 @@ public class ZzBot {
     private static String PATH = "./data/zzBot.txt";
     private static String MANUAL = "Certainly! Here is the manual:\nAvailable commands:\nadd\ndelete\nlist\nfind\nmark\nunmark\nbye\nTo add a new task, enter one of the following:\ndeadline\ntodo\nevent";
     public static String PERSONALITY_STRING = "Certainly Bro!\n";
+
+    /**
+     * Constructs a {@code ZzBot} instance with a specified storage path.
+     *
+     * @param path The path where the task data will be stored.
+     */
     public ZzBot(String path) {
         this.name = "ZzBot";
         this.ui = new Ui();
@@ -32,24 +39,48 @@ public class ZzBot {
         }
     }
 
+    /**
+     * Constructs a {@code ZzBot} instance with the default storage path.
+     */
     public ZzBot() {
         this(PATH);
     }
 
+    /**
+     * Generates a greeting message for the user.
+     *
+     * @return A greeting message from ZzBot.
+     */
     public String greet() {
 
         return String.format("\nHello! I'm %s", this.name) +
                 "\nWhat can I do for you?\n";
     }
 
+    /**
+     * Generates a goodbye message for the user.
+     *
+     * @return A farewell message from ZzBot.
+     */
     public String bye() {
         return personality() + "\nBye. Hope to see you again soon!\n";
     }
 
+    /**
+     * Adds personality to the bot by including a predefined personality string in responses.
+     *
+     * @return The personality string that ZzBot uses in its responses.
+     */
     public String personality() {
         return PERSONALITY_STRING;
     }
 
+    /**
+     * Adds a task to the task list and generates a response acknowledging the addition.
+     *
+     * @param task The task to add.
+     * @return A message confirming the task addition and the updated task count.
+     */
     public String add(Task task) {
         this.taskList.add(task);
         String message = personality() + String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list",
@@ -57,6 +88,12 @@ public class ZzBot {
         return message;
     }
 
+    /**
+     * Deletes a task from the task list based on the index and generates a response acknowledging the deletion.
+     *
+     * @param index The index of the task to delete (1-based).
+     * @return A message confirming the task deletion and the updated task count.
+     */
     public String delete(int index) {
         Task task = this.taskList.get(index - 1);
         this.taskList.delete(index - 1);
@@ -65,6 +102,11 @@ public class ZzBot {
         return message;
     }
 
+    /**
+     * Lists all tasks in the task list and generates a response.
+     *
+     * @return A message listing all tasks in the task list.
+     */
     public String list() {
         int length = this.taskList.size();
         String s = personality() + "Here are the tasks in your list:\n";
@@ -76,6 +118,12 @@ public class ZzBot {
         return s;
     }
 
+    /**
+     * Finds and lists tasks that contain a specified keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A message listing all matching tasks.
+     */
     public String find(String keyword) {
         String s = personality() + "Here are the matching tasks in your list:\n";
         int length = this.taskList.size();
@@ -91,6 +139,12 @@ public class ZzBot {
         return s;
     }
 
+    /**
+     * Marks a task as done and generates a response acknowledging the action.
+     *
+     * @param number The index of the task to mark as done (1-based).
+     * @return A message confirming the task is marked as done.
+     */
     public String mark(int number) {
         Task task = taskList.get(number - 1);
         task.markAsDone();
@@ -98,6 +152,12 @@ public class ZzBot {
         return s;
     }
 
+    /**
+     * Unmarks a task as not done and generates a response acknowledging the action.
+     *
+     * @param number The index of the task to unmark as done (1-based).
+     * @return A message confirming the task is marked as not done.
+     */
     public String unmark(int number) {
         Task task = taskList.get(number - 1);
         task.markUnDone();
@@ -105,10 +165,22 @@ public class ZzBot {
         return s;
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int getNumOfTask() {
         return this.taskList.size();
     }
 
+    /**
+     * Processes a user's input command and returns the corresponding response.
+     *
+     * @param input The user input to process.
+     * @return The response after processing the input.
+     * @throws ZzBotException If the command is invalid or cannot be processed.
+     */
     public String process(String input) throws ZzBotException {
         Parser parser = new Parser();
         String command = parser.parseCommand(input);
@@ -174,7 +246,6 @@ public class ZzBot {
             }
 
             case "help": {
-                String manual = "manual";
                 return this.ui.output(MANUAL);
             }
 
@@ -187,11 +258,11 @@ public class ZzBot {
 
     /**
      * Processes the user input and generates a response.
-     *
+     * <p>
      * This method takes the user input, processes it using the {@code process} method,
      * and returns the corresponding response. If the response is "bye", the program will exit.
      * Additionally, it saves the current task list to storage after processing the input.
-     *
+     * <p>
      * If an exception is thrown during processing, the method catches it and returns
      * the exception message as the response.
      *

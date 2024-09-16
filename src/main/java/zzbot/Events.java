@@ -9,6 +9,7 @@ public class Events extends Task {
 
     private String start;
     private String end;
+    public static final String TASK_TYPE = "E";
 
     /**
      * Constructs a new {@code Events} task with the specified name, start time, and end time.
@@ -18,7 +19,7 @@ public class Events extends Task {
      * @param start The start time of the event.
      * @param end   The end time of the event.
      */
-    Events(String name, String start, String end) {
+    public Events(String name, String start, String end) {
         super(name, "E");
         this.start = start;
         this.end = end;
@@ -32,8 +33,8 @@ public class Events extends Task {
      * @param start  The start time of the event.
      * @param end    The end time of the event.
      */
-    Events(String name, boolean isDone, String start, String end) {
-        super(name, isDone, "E");
+    public Events(String name, boolean isDone, String start, String end) {
+        super(name, isDone, TASK_TYPE);
         this.start = start;
         this.end = end;
     }

@@ -3,9 +3,24 @@ package zzbot;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Unit test for the {@link Parser} class.
+ * This test suite checks the parsing functionality of deadlines
+ * to ensure valid input is correctly processed without exceptions.
+ */
 public class ParserTest {
 
+    /**
+     * Tests the {@link Parser#parseDeadline(String)} method with valid input.
+     * <p>
+     * The test checks if the input string "return book /by 2023-12-31" is properly parsed into a task description
+     * and deadline date.
+     * </p>
+     * <p>
+     * The test expects no exception to be thrown for valid input and asserts that the parsed
+     * task description and deadline match the expected values.
+     * </p>
+     */
     @Test
     public void testParseDeadline_validInput_success() {
         Parser parser = new Parser();

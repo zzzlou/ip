@@ -3,8 +3,6 @@ package zzbot;
 import java.util.Scanner;
 
 
-import java.util.Scanner;
-
 /**
  * The {@code Ui} class handles user interaction through the console. It provides methods to read
  * user input, display output, and show error messages.
@@ -16,7 +14,7 @@ public class Ui {
     /**
      * Constructs a {@code Ui} object with a {@code Scanner} for reading input from the console.
      */
-    Ui() {
+    public Ui() {
         this.sc = new Scanner(System.in);
     }
 

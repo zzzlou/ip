@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task {
 
     private LocalDate deadline;
+    public static final String TASK_TYPE = "D";
 
     /**
      * Constructs a new {@code Deadlines} task with the specified name and deadline date.
@@ -20,7 +21,7 @@ public class Deadlines extends Task {
      * @param name     The name of the deadline task.
      * @param deadline The {@code LocalDate} object representing the deadline.
      */
-    Deadlines(String name, LocalDate deadline) {
+    public Deadlines(String name, LocalDate deadline) {
         super(name, "D");
         this.deadline = deadline;
     }
@@ -32,8 +33,8 @@ public class Deadlines extends Task {
      * @param isDone   The completion status of the task (true if done, false otherwise).
      * @param deadline The {@code LocalDate} object representing the deadline.
      */
-    Deadlines(String name, boolean isDone, LocalDate deadline) {
-        super(name, isDone, "D");
+    public Deadlines(String name, boolean isDone, LocalDate deadline) {
+        super(name, isDone, TASK_TYPE);
         this.deadline = deadline;
     }
 
@@ -46,9 +47,8 @@ public class Deadlines extends Task {
     @Override
     public String describe() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        String description = String.format("[%s][%s] %s (by: %s)",
+        return String.format("[%s][%s] %s (by: %s)",
                 this.type, this.getStatusIcon(), this.getName(), this.deadline.format(outputFormatter));
-        return description;
     }
 
     /**
@@ -63,6 +63,4 @@ public class Deadlines extends Task {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return this.type + "|" + (this.isDone ? "1" : "0") + "|" + this.name + "|" + this.deadline.toString() + "\n";
     }
-
-
 }

@@ -11,8 +11,12 @@ import java.util.Scanner;
 public class Storage {
 
     private String path;
+    private static final String DEADLINE_TASK_TYPE = "D";
+    private static final String EVENT_TASK_TYPE = "E";
+    private static final String COMPLETED = "1";
 
-    Storage(String path) {
+
+    public Storage(String path) {
         this.path = path;
     }
 
@@ -28,9 +32,6 @@ public class Storage {
 
     public ArrayList<Task> load() throws FileNotFoundException {
         File f = new File(this.path);
-        if (!f.exists()) {
-            System.out.println("no");
-        }
         Scanner s = new Scanner(f);
         ArrayList<Task> arr = new ArrayList<>();
         while (s.hasNext()) {
@@ -38,15 +39,15 @@ public class Storage {
             String line = s.nextLine();
             String[] ss = line.split("\\|");
             String type = ss[0];
-            boolean isDone = ss[1].equals("1");
+            boolean isDone = ss[1].equals(COMPLETED);
 
             String name = ss[2];
-            if (type.equals("D")) {
+            if (type.equals(DEADLINE_TASK_TYPE)) {
                 String deadline = ss[3];
                 LocalDate date = LocalDate.parse(deadline);
                 Task task = new Deadlines(name, isDone, date);
                 arr.add(task);
-            } else if (type.equals("E")) {
+            } else if (type.equals(EVENT_TASK_TYPE)) {
                 String start = ss[3];
                 String end = ss[4];
                 Task task = new Events(name, isDone, start, end);

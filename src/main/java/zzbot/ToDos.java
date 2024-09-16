@@ -13,7 +13,7 @@ public class ToDos extends Task {
      *
      * @param name The name of the to-do task.
      */
-    ToDos(String name) {
+    public ToDos(String name) {
         super(name, "T");
     }
 
@@ -23,7 +23,7 @@ public class ToDos extends Task {
      * @param name   The name of the to-do task.
      * @param isDone The completion status of the task (true if done, false otherwise).
      */
-    ToDos(String name, boolean isDone) {
+    public ToDos(String name, boolean isDone) {
         super(name, isDone, "T");
     }
 

@@ -6,6 +6,10 @@ package zzbot;
  */
 public class Parser {
 
+    private static final String DEADLINE_SEPARATOR = " /by ";
+    private static final String EVENT_SEPARATOR_FROM = " /from ";
+    private static final String EVENT_SEPARATOR_TO = " /to ";
+
     /**
      * Parses the command from the user input string.
      * The command is assumed to be the first word in the input string.
@@ -21,16 +25,6 @@ public class Parser {
         return input.split(" ")[1];
     }
 
-    /**
-     * Parses the arguments from the user input string.
-     * The method splits the input into two parts: the command and the remaining arguments.
-     *
-     * @param input The user input string.
-     * @return An array of strings, where the first element is the command and the second element is the remaining arguments.
-     */
-    public String[] parseArguments(String input) {
-        return input.split(" ", 2);
-    }
 
     /**
      * Parses a number argument from the user input string.
@@ -75,7 +69,7 @@ public class Parser {
      */
     public String[] parseDeadline(String input) throws ZzBotInvalidDateException {
         try {
-            return input.substring(parseCommand(input).length() + 1).split(" /by ");
+            return input.substring(parseCommand(input).length() + 1).split(DEADLINE_SEPARATOR);
         } catch (Exception e) {
             throw new ZzBotInvalidDateException(input);
         }
@@ -92,7 +86,7 @@ public class Parser {
      */
     public String[] parseEvent(String input) throws ZzBotParseCommandException {
         try {
-            return input.substring(parseCommand(input).length() + 1).split(" /from | /to ");
+            return input.substring(parseCommand(input).length() + 1).split(EVENT_SEPARATOR_FROM + "|" + EVENT_SEPARATOR_TO);
         } catch (Exception e) {
             throw new ZzBotParseCommandException(input);
         }

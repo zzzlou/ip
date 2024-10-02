@@ -69,6 +69,8 @@ This will return all tasks containing the keyword 'book'.
 Command: 
 `bye`
 
+Outputs: A farewell message.
+
 ### Note: This command is not intended to exit the program, but simply to say bye.
 
 ## Personality

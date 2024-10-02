@@ -69,7 +69,7 @@ This will return all tasks containing the keyword 'book'.
 Command: 
 `bye`
 
-Exits the program
+### Note: This command simply outputs a farewell message. It is not meant to exit the program.
 
 ## Personality
 ZzBot has an outgoing personality. In every response, he will begin with a friendly "Certainly Bro!".

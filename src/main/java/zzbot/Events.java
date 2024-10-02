@@ -7,9 +7,9 @@ package zzbot;
  */
 public class Events extends Task {
 
+    public static final String TASK_TYPE = "E";
     private String start;
     private String end;
-    public static final String TASK_TYPE = "E";
 
     /**
      * Constructs a new {@code Events} task with the specified name, start time, and end time.

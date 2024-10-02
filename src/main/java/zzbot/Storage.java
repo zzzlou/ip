@@ -8,18 +8,30 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the reading and writing of task data to and from a file.
+ * This class is responsible for saving tasks to a specified file and loading tasks
+ * from that file, ensuring data persistence across sessions.
+ */
 public class Storage {
 
-    private String path;
     private static final String DEADLINE_TASK_TYPE = "D";
     private static final String EVENT_TASK_TYPE = "E";
     private static final String COMPLETED = "1";
+    private String path;
+
 
 
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Writes the current list of tasks to the file.
+     *
+     * @param tasks the list of tasks to be recorded to the file
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     public void record(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.path);
         for (int i = 0; i < tasks.size(); i++) {
@@ -30,6 +42,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the file. If the file does not exist, it is created.
+     *
+     * @return an {@code ArrayList} of tasks loaded from the file
+     */
     public ArrayList<Task> load() {
         File f = new File(this.path);
         ArrayList<Task> arr = new ArrayList<>();

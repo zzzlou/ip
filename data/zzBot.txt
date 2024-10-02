@@ -3,3 +3,6 @@ D|1|return book|2025-09-05
 D|0|play video games|2024-09-17
 E|0|project meeting|Mon 2pm|4pm
 D|0|have fun|2030-03-03
+D|0|hii|2021-02-02
+E|0|hii|Mon 2pm|4pm
+T|0|borrow book

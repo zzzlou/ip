@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadlines extends Task {
 
-    private LocalDate deadline;
     public static final String TASK_TYPE = "D";
+    private LocalDate deadline;
 
     /**
      * Constructs a new {@code Deadlines} task with the specified name and deadline date.
